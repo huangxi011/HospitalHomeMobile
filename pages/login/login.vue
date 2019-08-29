@@ -9,7 +9,7 @@
 				<button class="zai-checking" @tap="getCode" :loading="gettingCode">获取验证码</button>
 			</view>
 			<button class="zai-btn" @tap="Login">登录</button>
-			<view  class="tip-text">
+			<view class="tip-text">
 				<text v-if="secrettip!=''">{{secrettip}}</text>
 				<text v-else></text>
 			</view>
@@ -87,7 +87,7 @@
 							data:res.data.currentUserGuid,
 						});
 						uni.navigateTo({
-							url:'../profile/profile',
+							url:'../index',
 						})
 
 					}

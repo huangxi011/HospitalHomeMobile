@@ -1,2 +1,0 @@
-setCssToHead(["body { background-color: #FFFFFF; }\n",],undefined,{path:"./pages/userInfo/modifyMobile.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/userInfo/modifyMobile.wxml') } }));

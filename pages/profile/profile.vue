@@ -1,9 +1,9 @@
 <template>
 	<view class="content">
-		<view v-bind:style="{height: divheight +'px'}" style="background-color: #0081FF;"></view>
+		<statusBar></statusBar>
 		<view class="head">
 			<p>
-				<span></span>
+				<span><navigator class="cuIcon-home" url="../index"></navigator></span>
 				<span><navigator class="cuIcon-settings" url="../userInfo/userInfo"></navigator></span>
 			</p>
 		</view>	
@@ -149,7 +149,7 @@
 	.head > p > span:nth-of-type(1){
 		display: inline-block;
 		float: left;
-		padding-left: 16px;
+		padding-left: 10px;
 		font-size: 18px;
 		font-weight: bold;
 	}
@@ -159,7 +159,7 @@
 		padding:0rpx 0rpx 0 0;
 		font-size: 20px;
 	}
-	.head > p > span:nth-of-type(2)> navigator{
+	.head > p > span> navigator{
 		text-align: center;
 		font-size: 40rpx;
 		width: 90rpx;

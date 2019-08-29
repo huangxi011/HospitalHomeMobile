@@ -1,2 +1,0 @@
-setCssToHead(["body { padding-bottom: ",[0,100],"; }\n#chat-panel .",[1],"server .",[1],"content { display: block; }\n#chat-panel .",[1],"cu-item { padding-bottom: 0px; }\n",],"Some selectors are not allowed in component wxss, including tag name selectors, ID selectors, and attribute selectors.(./pages/Guide/Guide.wxss:7:1)",{path:"./pages/Guide/Guide.wxss"})();
-document.dispatchEvent(new CustomEvent("generateFuncReady", { detail: { generateFunc: $gwx('./pages/Guide/Guide.wxml') } }));

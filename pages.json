@@ -1,72 +1,119 @@
 {
-	"pages": [
-		//pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+    "pages" : [
+        //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/login/login",
-			"style": {
-				"navigationBarTitleText": "登录界面"
-			}
+		    "path" : "pages/login/login",
+		    "style" : {
+		        "navigationBarTitleText" : "登录界面"
+		    }
 		},
-		{
-			"path": "pages/login/regist",
-			"style": {
-				"navigationBarTitleText": "注册界面"
-			}
-		},
-		{
-			"path": "pages/profile/profile",
-			"style": {
-				"navigationBarTitleText": "个人中心"
-			}
-		},
-		{
-			"path": "pages/userInfo/userInfo",
-			"style": {
-				"navigationBarTitleText": "用户信息"
-			}
-		},
-		{
-			"path": "pages/userInfo/modifyGrade",
-			"style": {
-				"navigationBarTitleText": "年龄修改"
-			}
-		},
-		{
-			"path": "pages/userInfo/modifyRealName",
-			"style": {
-				"navigationBarTitleText": "昵称修改"
-			}
-		},
-		{
-			"path": "pages/userInfo/modifyMobile",
-			"style": {
-				"navigationBarTitleText": "手机号码修改"
-			}
-		},
-		{
-			"path": "pages/Guide/Guide",
-			"style": {}
-		}
+        {
+            "path" : "pages/index",
+            "style" : {
+                "navigationBarTitleText" : "主页"
+            }
+        },
+        {
+            "path" : "pages/Search/Result",
+            "style" : {
+                "navigationBarTitleText" : "搜索结果"
+            }
+        },
+        {
+            "path" : "pages/ExpertList/ExpertList",
+            "style" : {
+                "navigationBarTitleText" : "医生列表"
+            }
+        },
+        {
+            "path" : "pages/DoctorDetail/DoctorDetail",
+            "style" : {
+                "navigationBarTitleText" : "医生详细"
+            }
+        },
+        {
+            "path" : "pages/Search/Search",
+            "style" : {
+                "navigationBarTitleText" : "搜索页"
+            }
+        },
+        {
+            "path" : "pages/HospitalDetail/HospitalDetail",
+            "style" : {
+                "navigationBarTitleText" : "医院介绍"
+            }
+        },
+        {
+            "path" : "pages/DepartList/DepartList",
+            "style" : {
+                "navigationBarTitleText" : "科室列表"
+            }
+        },
+        {
+            "path" : "pages/login/regist",
+            "style" : {
+                "navigationBarTitleText" : "注册界面"
+            }
+        },
+        {
+            "path" : "pages/profile/profile",
+            "style" : {
+                "navigationBarTitleText" : "个人中心"
+            }
+        },
+        {
+            "path" : "pages/userInfo/userInfo",
+            "style" : {
+                "navigationBarTitleText" : "用户信息"
+            }
+        },
+        {
+            "path" : "pages/userInfo/modifyGrade",
+            "style" : {
+                "navigationBarTitleText" : "年龄修改"
+            }
+        },
+        {
+            "path" : "pages/userInfo/modifyRealName",
+            "style" : {
+                "navigationBarTitleText" : "昵称修改"
+            }
+        },
+        {
+            "path" : "pages/userInfo/modifyMobile",
+            "style" : {
+                "navigationBarTitleText" : "手机号码修改"
+            }
+        },
+        {
+            "path" : "pages/Guide/Guide",
+            "style" : {}
+        },
+        {
+            "path" : "colorui/components/myStatusBar",
+            "style" : {}
+        }
     ],
-	"globalStyle": {
-		"mp-alipay": {
-			/* 支付宝小程序特有相关 */
-			"transparentTitle": "always",
-			"allowsBounceVertical": "NO"
-		},
-		"navigationBarBackgroundColor": "#0081ff",
-		"navigationBarTitleText": "医院之家",
-		"navigationStyle": "custom",
-		"navigationBarTextStyle": "white"
-	},
-	"condition" : { //模式配置，仅开发期间生效
-		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "登录",
-				"path": "pages/login/login"
-			}
-		]
-	},
-	"usingComponts": true
+    "globalStyle" : {
+        "mp-alipay" : {
+            /* 支付宝小程序特有相关 */
+            "transparentTitle" : "always",
+            "allowsBounceVertical" : "NO"
+        },
+        "navigationBarBackgroundColor" : "#0081ff",
+        "navigationBarTitleText" : "医院之家",
+        "navigationStyle" : "custom",
+        "navigationBarTextStyle" : "white"
+    },
+    "condition" : {
+        //模式配置，仅开发期间生效
+        "current" : 0, //当前激活的模式(list 的索引项)
+        "list" : [
+            {
+                "name" : "登录",
+                "path" : "pages/login/login"
+            }
+        ]
+    },
+    "usingComponts" : true
 }
