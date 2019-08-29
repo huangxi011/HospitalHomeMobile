@@ -32,7 +32,7 @@
             }
         },
         {
-            "path" : "pages/Search/Search",
+            "path" : "pages/Search/search",
             "style" : {
                 "navigationBarTitleText" : "搜索页"
             }
