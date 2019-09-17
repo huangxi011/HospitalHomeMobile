@@ -8,10 +8,11 @@ Vue.component('statusBar', SB)
 Vue.component('bottom-navbar', bottomNavBar)
 
 Vue.config.productionTip = false
-
+let app = require("@/config");
+require("./init");
 App.mpType = 'app'
 
-const app = new Vue({
+const vm = new Vue({
     ...App
 })
-app.$mount()
+vm.$mount()

@@ -1,5 +1,5 @@
 <template>
-	<view class="zai-box">
+	<view class="zai-box" @longpress="NavToIndex()">
 		<image src="../../static/register.png" class="zai-logo"></image>
 		<view class="zai-title">用户登录</view>
 		<view class="zai-form">
@@ -19,6 +19,7 @@
 </template>
 
 <script>
+	let app = require("@/config");
 	export default {
 		data() {
 			return {
@@ -31,9 +32,14 @@
 			}
 		},
 		onLoad() {
-	
+			
 		},
 		methods: {
+			NavToIndex(){
+				uni.redirectTo({
+					url:'../index'
+				});
+			},
 			getCode()
 			{
 				if(this.mobile.length!=11)
@@ -42,56 +48,44 @@
 					return;
 				}
 				this.gettingCode=true;
-				uni.request({
-					url: 'http://hh.ricebird.cn/api/security/GetVerifyCode',
-					method: 'POST',
-					data: {
-						mobile: this.mobile,
-					},
-					success: res => {
-						if(res.data.success===false)
-						{
-							this.secrettip = res.data.msg;
-							return;
-						}
-						this.Code=res.data.Code;
-						this.sceneId=res.data.sceneId;
-						this.tip='';
-					},
-					complete: () => {
-						this.gettingCode=false;
+				uni.post("/api/security/GetVerifyCode", { mobile: this.mobile }, msg => {
+					if(msg.success === false)
+					{
+						this.secrettip = msg.msg;
+						return;
 					}
+					this.Code = msg.Code;
+					this.sceneId = msg.sceneId;
+					this.tip = '';
+					this.gettingCode = false;
 				});
 			},	
 			Login(){
-				uni.request({
-					url: 'http://hh.ricebird.cn/api/security/Login',
-					method: 'POST',
-					data: {
-						username:this.mobile,
-						pwd:this.Code,
-						sceneId:this.sceneId,
-						method:'mobile',
-					},
-					header:{
-						'content-type':"application/x-www-form-urlencoded",
-					},
-					success: res => {
-						if(res.data.success===false)
-						{
-							this.secrettip=res.data.msg;
-							return;
-						}
-						uni.setStorage({
-							key:'currentUserGuid',
-							data:res.data.currentUserGuid,
-						});
-						uni.navigateTo({
-							url:'../index',
-						})
-
+				uni.post("/api/security/Login", {
+					username:this.mobile,
+					pwd:this.Code,
+					sceneId:this.sceneId,
+					method:'mobile',
+				}, msg => {
+					if(!msg.success)
+					{
+						this.secrettip = msg.msg;
+						return;
+					}
+					uni.setStorage({
+						key:'currentUserGuid',
+						data: msg.currentUserGuid,
+					});
+					app.currentUserGuid = msg.currentUserGuid;
+					app.userInfo = msg.userInfo;
+					let ps = app.userInfo.permissons;
+					app.checkPermission = (p) => {
+						return ps && ps.indexOf(p) >= 0;
 					}
 				});
+				uni.navigateTo({
+					url: app.dashboard
+				})
 			},
 		},
 	}
