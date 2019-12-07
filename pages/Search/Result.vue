@@ -42,7 +42,7 @@
 				<text class="cuIcon-unfold padding-xs" @click="provinceopen"></text>
 			</view>
 			<view class="grid col-5 text-center" :style="{height:provinceheight,overflow:hidden}">
-				<view v-for="(item,proIndex) in Province" :key="proIndex" @click="chooseProvience(proIndex)" class="margin-tb-xs">
+				<view v-for="(item,proIndex) in Province" :key="proIndex" @click="chooseProvience(proIndex, item.value)" class="margin-tb-xs">
 					<view class="cu-tag light radius" :class="[proIndex==proChoice ? 'bg-blue':'bg-cyan']">{{item.value}}</view>
 				</view>
 			</view>
@@ -52,7 +52,7 @@
 				<text class="cuIcon-unfold padding-xs" @click="cityopen"></text>
 			</view>
 			<view class="grid col-5 text-center" :style="{height:cityheight,overflow:hidden}">
-				<view :key="cityIndex" v-for="(item,cityIndex) in Province[proChoice].children" @click="chooseCity(cityIndex)" class="margin-tb-xs">
+				<view :key="cityIndex" v-for="(item,cityIndex) in Province[proChoice].children" @click="chooseCity(cityIndex, item.value)" class="margin-tb-xs">
 					<view class="cu-tag light radius" :class="[cityChoice==cityIndex ? 'bg-blue':'bg-cyan']">{{item.value}}</view>
 				</view>
 			</view>
@@ -81,19 +81,38 @@
 
 <script>
 	import exp from '../../area.js'
+	let app = require("@/config");
 	export default {
 		data() {
+			let region = app.userInfo.region;
+			region = [region.province, region.city];
+			let proIndex = 0, cityIndex = 0;
+			for (let i in exp) {
+				let e = exp[i];
+				if (e.value === region[0]) {
+					proIndex = i;
+					for (let j in e.children) {
+						let ec = e.children[j];
+						if (ec.value === region[1]) {
+							cityIndex = j;
+							break;
+						}
+					}
+				}
+			}
+			
 			return {
 				TabCur:0,
-				proChoice: 0,
-				cityChoice: -1,
+				proChoice: proIndex,
+				cityChoice: cityIndex,
 				picker: ['按推荐', '按收藏', '按更新'],
 				showFilters:false,
 				myheight:"0px",
 				cityheight:'68rpx',
 				provinceheight:'68rpx',
 				hidden: 'hidden',
-				Province:[],
+				Province: exp,
+				region,
 				index:0,
 				keyword:'原发性肝癌',
 				searchResult:[
@@ -127,15 +146,26 @@
 						avatar:'../../static/hospital0.png',
 						tags:['市级','公立'],
 					},
-				]
+				],
+				page: 1,
+				pageSize: 10,
+				totalRow: 0
 			}
 		},
 		methods: {
-			chooseCity(index){
+			getData (page) {},
+			chooseCity(index, value){
 				this.cityChoice=index;
+				this.region[1] = value;
 			},
-			chooseProvience(index){
+			chooseProvience(index, value){
 				this.proChoice=index;
+				this.region[0] = value;
+				let children = this.Province[index].children;
+				if (children.length) {
+					this.region[1] = children[0].value;
+					this.cityChoice = 0;
+				}
 			},
 			tabSelect(e) {
 				this.TabCur = e.currentTarget.dataset.id;
@@ -160,7 +190,8 @@
 		},
 		onLoad(data) {
 			this.keyword=data.keyword;
-			this.Province=exp;
+			this.TabCur = data.tab || 0;
+			this.getData(1);
 		}
 	}
 </script>

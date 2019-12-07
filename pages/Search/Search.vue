@@ -87,14 +87,14 @@
 		},
 		methods: {
 			btn1()
-						{
-							this.atten=!this.atten;
-						},
-						loadfindkeys()
-						{
-							this.findKeywordList=['呼吸科','原发性肝癌','呼吸科权威医院','广州医科','呼吸健康','医院'];
-							
-						},
+			{
+				this.atten=!this.atten;
+			},
+			loadfindkeys()
+			{
+				this.findKeywordList=['呼吸科','原发性肝癌','呼吸科权威医院','广州医科','呼吸健康','医院'];
+				
+			},
 			btn()
 			{
 				this.fold=!this.fold;
@@ -137,12 +137,11 @@
 				this.saveKeyword(key);
 				
 				uni.navigateTo({
-					url:'./Result?keyword=' + this.keyword,
+					url:`./Result?keyword=${this.keyword}&tab=${this.TabCur}`,
 				})
 				
 			},
-			saveKeyword(key)
-			{
+			saveKeyword(key) {
 				uni.getStorage({
 					key:'oldkeys',
 					success: (res) => {

@@ -12,7 +12,19 @@ let app = require("@/config");
 require("./init");
 App.mpType = 'app'
 
-const vm = new Vue({
-    ...App
+uni.post("/api/config/GetBasicConfig", {}, msg => {
+	if (msg.success) {
+		app.webInfo = msg.info;
+		app.titlePerfix = " - " + app.webInfo.title;
+		app.userInfo = msg.userInfo;
+		let ps = app.userInfo.permissons;
+		app.checkPermission = (p) => {
+			return ps && ps.indexOf(p) >= 0;
+		}
+	}
+
+	const vm = new Vue({
+	    ...App
+	})
+	vm.$mount()
 })
-vm.$mount()

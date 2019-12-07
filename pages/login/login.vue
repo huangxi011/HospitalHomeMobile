@@ -32,7 +32,14 @@
 			}
 		},
 		onLoad() {
-			
+			let ui = uni.getStorageSync('loginInfo');
+			ui.username = "hospital-uni-app";
+			ui.pwd = "pwd"
+			if (ui) {
+				uni.post("/api/security/login", ui, msg => {
+					this.toDashboard(msg);
+				})
+			}
 		},
 		methods: {
 			NavToIndex(){
@@ -66,28 +73,41 @@
 					pwd:this.Code,
 					sceneId:this.sceneId,
 					method:'mobile',
+					isRemember: true
 				}, msg => {
 					if(!msg.success)
 					{
 						this.secrettip = msg.msg;
 						return;
 					}
-					uni.setStorage({
-						key:'currentUserGuid',
-						data: msg.currentUserGuid,
-					});
-					app.currentUserGuid = msg.currentUserGuid;
-					app.userInfo = msg.userInfo;
-					let ps = app.userInfo.permissons;
-					app.checkPermission = (p) => {
-						return ps && ps.indexOf(p) >= 0;
-					}
+					this.toDashboard(msg);
 				});
+			},
+			toDashboard (msg) {
+				uni.setStorage({
+					key:'currentUserGuid',
+					data: msg.currentUserGuid,
+				});
+				if (msg.isRemember) {
+					uni.setStorage({
+						key: 'loginInfo',
+						data: {
+							code: msg.userInfo.code,
+							isPwd: false
+						}
+					});
+				}
+				app.currentUserGuid = msg.currentUserGuid;
+				app.userInfo = msg.userInfo;
+				let ps = app.userInfo.permissons;
+				app.checkPermission = (p) => {
+					return ps && ps.indexOf(p) >= 0;
+				}
 				uni.navigateTo({
 					url: app.dashboard
 				})
-			},
-		},
+			}
+		}
 	}
 </script>
 
