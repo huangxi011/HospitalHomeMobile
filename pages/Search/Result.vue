@@ -8,7 +8,7 @@
 				<text class="cuIcon-voice text-blue" style="font-size: 44rpx;"></text>
 			</view>
 			<view class="action">
-				<button class="cu-btn shadow-blur round">搜索</button>
+				<button class="cu-btn shadow-blur round" @click="onSearch">搜索</button>
 			</view>
 		</view>
 		<view>
@@ -114,7 +114,7 @@
 				Province: exp,
 				region,
 				index:0,
-				keyword:'原发性肝癌',
+				keyword:'厦门',
 				searchResult:[
 					{
 						name:'厦门大学附属翔安医院',
@@ -154,6 +154,32 @@
 		},
 		methods: {
 			getData (page) {},
+			onSearch () {
+				// 1. 生成参数表
+				let params = {
+					keyword: this.keyword
+				}
+				console.log(1);
+				// 2. 访问接口
+				uni.post("/api/hos/searchv3", params, msg => {
+					console.log(2);
+					// 3. 处理结果
+					let dt = msg.data.map(e => {
+						return {
+							name: e.Name,
+							abstract: e.Abstract,
+							avatar: "../../static/hospital0.png",
+							tags: [e.Level, e.ProfitModel]
+						};
+					});
+					
+					// 4. 显示
+					console.log(3);
+					this.searchResult = dt;
+				});
+				console.log(4);
+				// msg是不存在的
+			},
 			chooseCity(index, value){
 				this.cityChoice=index;
 				this.region[1] = value;
